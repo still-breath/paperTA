@@ -1,0 +1,25 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Introduction}
+\label{sec:introduction}
+
+
+The continuous increase in the number of vehicles significantly affects traffic conditions, causing congestion and increasing the potential for traffic accidents. Effective traffic management, particularly speed monitoring, becomes crucial in mitigating these issues. Traditional methods of speed estimation typically utilize fixed surveillance cameras installed at predetermined locations. However, this approach lacks flexibility, involves high maintenance costs, and is difficult to implement in dynamic and expansive areas \cite{ref1}.
+
+The advancement of unmanned aerial vehicles (UAVs), commonly known as drones, offers a promising solution to address these limitations. Drones provide mobility, flexibility, and a broader field of view compared to fixed camera systems, making them suitable for diverse traffic monitoring applications. Recent developments in drone technology also allow for real-time data collection in areas with limited infrastructure \cite{ref1}.
+
+In parallel, the development of deep learning-based object detection models has significantly advanced, particularly the YOLO (You Only Look Once) family, which is known for its speed and accuracy in real-time environments. The latest version, YOLOv8, introduces architectural enhancements, better performance, and optimization opportunities suitable for edge computing devices \cite{ref3}. This makes it a viable option to be implemented on lightweight hardware such as the NVIDIA Jetson Nano.
+
+Edge computing using devices like Jetson Nano allows real-time inference to be executed directly on-site without the need for continuous data transmission to a cloud server. This architecture minimizes latency and power consumption, which is critical for drone-based monitoring systems \cite{ref5}.
+
+Previous research has demonstrated that object tracking can further improve the robustness of vehicle monitoring systems. Trackers such as OC-SORT offer reliable identity preservation over video frames, which is essential for speed estimation tasks based on sequential position changes.
+
+This research proposes the design and implementation of a system to estimate vehicle speed using a DJI Phantom 4 Pro drone and YOLOv8 detection model, supported by OC-SORT tracking and processed on a Jetson Nano embedded system. The proposed solution focuses on creating a lightweight, portable, and accurate speed estimation system for vehicles, using aerial footage streamed in real-time via RTMP protocol.
+
+The key contributions of this study include:
+\begin{itemize}
+  \item Designing a portable traffic monitoring system using UAV and edge computing;
+  \item Implementing YOLOv8 detection and OC-SORT tracking optimized for Jetson Nano;
+  \item Estimating vehicle speed based on changes in object positions and ground sampling distance (GSD) calibration from aerial video;
+  \item Analyzing system performance under various lighting and height conditions to determine optimal operational parameters.
+\end{itemize}
+

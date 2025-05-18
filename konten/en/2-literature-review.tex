@@ -1,0 +1,71 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Literature Review}
+\label{sec:literaturreview}
+
+% Ubah paragraf-paragraf pada bagian ini sesuai dengan yang diinginkan.
+
+Several studies have explored vehicle speed estimation and object detection using UAVs. These works show that UAVs provide an efficient alternative to fixed surveillance systems due to their flexibility and broader coverage area [1].
+
+\subsection{Related Works}
+Rizky et al. [7] used YOLOv4 and Kalman Filter to estimate vehicle speed from drone footage at 30 meters height with an accuracy of 90%.
+Arya et al. [8] implemented YOLOv5 and DeepSORT on stationary CCTV footage for traffic analysis in urban areas.
+Wibowo et al. [9] applied YOLOv5 and ByteTrack on Jetson Nano for vehicle detection, noting limitations in inference speed.
+Ahmad et al. [10] used YOLOv6 and DeepSORT with UAV recordings, but relied on high-specification laptops for processing.
+These related works inspired the current study to combine YOLOv8 and OC-SORT for robust detection and tracking on an edge device (Jetson Nano), improving portability while maintaining inference performance.
+
+\subsection{Vehicle Speed Estimation Techniques}
+Conventional speed estimation systems rely on sensors or stationary cameras, which are limited in coverage and deployment flexibility. Recent works have utilized aerial imagery from UAVs to estimate vehicle speed using object detection and tracking algorithms. For instance, combining bounding box movement with ground sampling distance (GSD) allows for accurate speed computation~\cite{ref2}.
+
+To calculate vehicle speed in meters per second (m/s) from aerial imagery, the displacement of an object in the image (in pixels) is converted into a real-world distance (in meters) using GSD. This real-world distance is then divided by the time interval between frames.
+
+\begin{equation}
+    v = \frac{d}{t}
+    \label{eq:speed_basic}
+\end{equation}
+
+where $v$ is the speed in meters per second (m/s), $d$ is the displacement in meters, and $t$ is the time interval in seconds.
+
+To convert speed from meters per second to kilometers per hour, the following equation is used:
+
+\begin{equation}
+    v_{km/h} = v_{m/s} \times 3.6
+    \label{eq:speed_conversion}
+\end{equation}
+
+The displacement $d$ is obtained from the pixel movement $\Delta p$ multiplied by the GSD:
+
+\begin{equation}
+    d = \Delta p \times GSD
+    \label{eq:displacement}
+\end{equation}
+
+Ground Sampling Distance (GSD) is a crucial parameter to translate image scale to real-world scale. GSD is computed using the following formula:
+
+\begin{equation}
+    GSD = \frac{H \times S}{f \times I}
+    \label{eq:gsd}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $H$ is the drone's height above ground level (in meters),
+    \item $S$ is the sensor width or height (in mm),
+    \item $f$ is the focal length of the camera (in mm),
+    \item $I$ is the image width or height in pixels (corresponding to $S$).
+\end{itemize}
+
+The GSD gives the real-world size represented by one pixel in the image (typically in meters per pixel). When the drone maintains a stable altitude and orientation, the GSD remains constant, making it reliable for speed calculations using image frames.
+
+Accurate estimation of $v$ depends heavily on precise calibration of the camera and stable frame rate to determine $t$.
+
+\subsection{Object Detection with YOLO}
+YOLO (You Only Look Once) is a real-time object detection system known for its balance of speed and accuracy. YOLOv8, the latest generation, improves detection accuracy and inference efficiency through architectural upgrades. It is especially suited for edge computing platforms like Jetson Nano, which are constrained in computational resources [3].
+
+\subsection{Tracking Algorithms}
+In speed estimation, tracking is essential to maintain consistent object IDs across frames. Various algorithms have been used, including DeepSORT, OC-SORT, and ByteTrack. OC-SORT provides better performance in terms of tracking consistency and is suitable for aerial video processing [4].
+
+\subsection{Jetson Nano for Edge Computing}
+The NVIDIA Jetson Nano is widely adopted in AI-based embedded systems due to its compact form factor, affordability, and GPU-accelerated processing. It enables on-device inference, reducing latency and eliminating the need for constant internet connectivity or high-end cloud computation [5].
+
+\subsection{TensorRT Optimization}
+For efficient deployment, YOLOv8 models are often converted using TensorRT, a high-performance deep learning inference optimizer by NVIDIA. This step significantly boosts inference speed on Jetson Nano, making real-time processing feasible [6].
